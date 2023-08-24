@@ -45,7 +45,7 @@ module.exports = function(app){
                     $el: $(item),
                     reader:portfolio
                 })
-                );
+            );
         });
 
         // set the array of the available items, by default all of them

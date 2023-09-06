@@ -240,17 +240,21 @@ module.exports = function(app){
     PortfolioFW.prototype.ajax_getItems = function(){
         var portfolio = this;
         return new Promise(function(resolve,reject){
+            var payload = {
+                'TL_AJAX':1,
+                'moduleId': portfolio.getData('ajax-moduleid',0),
+                'REQUEST_TOKEN': portfolio.getData('ajax-rt',0),
+                'action': 'getItems',
+                'template': portfolio.getData('ajax-templateitems',0),
+            };
+            if (portfolio.getData('ajax-param-category',false))
+                payload.categories = [portfolio.getData('ajax-param-category','')];
+            // console.log(payload);
             $.ajax({
                 timeout: 10000,
                 url: window.location.pathname,
                 method: 'post',
-                data:{
-                    'TL_AJAX':1,
-                    'moduleId': portfolio.getData('ajax-moduleid',0),
-                    'REQUEST_TOKEN': portfolio.getData('ajax-rt',0),
-                    'action': 'getItems',
-                    'template': portfolio.getData('ajax-templateitems',0),
-                },
+                data:payload,
             }).done(function(data){
                 if (typeof data !== 'object')
                     try{ data = $.parseJSON(data); } catch(e){throw e;}

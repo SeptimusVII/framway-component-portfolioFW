@@ -113,7 +113,7 @@ module.exports = function(app){
             // detect if we are on the root url of the potfolio. If not, we are probably requesting to open the reader with an alias
             if(window.location.href.indexOf(portfolio.url) == -1 &&  window.location.href.indexOf(portfolio.url.replace('.html','/')) != -1 ){
                 try{
-                    var alias =  window.location.href.split(portfolio.url.replace('.html','')+'/')[1].replace('.html','');
+                    var alias =  window.location.href.split(portfolio.url.replace('.html','')+'/')[1].split('?')[0].replace('.html','');
                     portfolio.open( portfolio.items.find(function (item) {return String(item.alias) === alias; }));
                 } catch(e){
                     throw new Error('failed to retrieve portfolio item with alias "'+alias+'"');
